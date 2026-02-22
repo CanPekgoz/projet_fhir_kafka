@@ -9,8 +9,6 @@ Le pipeline suit les étapes suivantes :
 
 Patient → Génération FHIR → Kafka → Analyse → Elasticsearch → Kibana
 
----
-
 ### 1. Génération des données médicales (FHIR)
 
 Un module Python simule des patients et génère des mesures de pression artérielle :
@@ -58,7 +56,6 @@ Chaque observation est classée :
 
 Cette étape représente un système d’aide à la décision médicale automatisé.
 
----
 
 ### 4. Traitement des résultats
 
@@ -77,8 +74,6 @@ Les données sont envoyées vers Elasticsearch avec des métadonnées :
 
 Cela représente un cas nécessitant une surveillance médicale.
 
----
-
 ### 5. Indexation dans Elasticsearch
 
 Elasticsearch sert de base de données orientée recherche.
@@ -89,8 +84,6 @@ Il permet :
 - agrégations statistiques
 
 Chaque anomalie devient un document indexé consultable immédiatement.
-
----
 
 ### 6. Visualisation dans Kibana
 
@@ -104,8 +97,6 @@ Les tableaux de bord affichent :
 - détection de pics critiques
 
 Le système devient alors un tableau de monitoring patient en temps réel.
-
----
 
 ## Fonctionnement global
 
@@ -149,26 +140,6 @@ Ce pipeline reproduit un système de surveillance médicale continu (monitoring 
 
 ###  Dashboard Kibana temps réel
 ![Dashboard](screenshots/Kibana_Dashboard.png)
-
-## Lancer le projet
-
-### 1. Lancer Docker
-
-docker compose up -d
-
-### 2. Lancer le Producer
-
-python -m producer.producer
-
-### 3. Lancer le Consumer
-
-python -m consumer.consumer
-
-### 4. Visualiser
-
-http://localhost:5601
-
-Index : bp_anomalies
 
 ## Données traitées
 
@@ -396,11 +367,27 @@ Le projet est entièrement reproductible grâce à Docker.
 
 Pour relancer le système sur une nouvelle machine :
 
-```bash
-git clone <repo>
+git clone https://github.com/CanPekgoz/projet_fhir_kafka.git
 cd projet_fhir_kafka
+
+# créer venv
+python -m venv .venv
+.\.venv\Scripts\activate
+
+# installer dépendances
+pip install -r requirements.txt
+
+# démarrer l’infra
+cd docker
 docker compose up -d
-python -m producer.producer
+cd ..
+
+# lancer consumer
 python -m consumer.consumer
 
-Puis ouvrire : http://localhost:5601
+# lancer producer (dans un 2e terminal)
+python -m producer.producer
+
+Et ajoute les URLs :
+	•	Kibana : http://localhost:5601
+	•	Elasticsearch : http://localhost:9200
