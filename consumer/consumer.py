@@ -1,4 +1,5 @@
 import json
+import os
 from kafka import KafkaConsumer
 from elasticsearch import Elasticsearch
 from datetime import datetime, timezone
@@ -13,6 +14,7 @@ def is_anomalous(sys, dia):
     return sys > 140 or sys < 90 or dia > 90 or dia < 60
 
 def save_normal(obs):
+    os.makedirs("data", exist_ok=True)
     with open("data/normal_observations.json", "a", encoding="utf-8") as f:
         f.write(json.dumps(obs) + "\n")
 
