@@ -124,7 +124,7 @@ Le traitement se fait en continu et permet de détecter rapidement les situation
 ## Architecture
 
 ## 🏗️ Architecture du système
-![Architecture](screenshots/architecture.png)
+![Architecture](screenshots/Architecture.png)
 
 Python Generator → Kafka → Python Consumer → Elasticsearch → Kibana
 
