@@ -7,13 +7,7 @@ TOPIC = "bp_observations"
 BOOTSTRAP_SERVERS = ["localhost:9092"]
 
 # Connexion Elasticsearch
-es = Elasticsearch(
-    "http://localhost:9200",
-    headers={
-        "Accept": "application/vnd.elasticsearch+json; compatible-with=8",
-        "Content-Type": "application/vnd.elasticsearch+json; compatible-with=8",
-    },
-)
+es = Elasticsearch("http://localhost:9200")
 
 def is_anomalous(sys, dia):
     return sys > 140 or sys < 90 or dia > 90 or dia < 60
